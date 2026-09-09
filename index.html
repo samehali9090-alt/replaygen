@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReplyGen - AI Reply Generator</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #202124;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 34px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 18px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 18px 0 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      resize: vertical;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      background: white;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #111827;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #results {
+      margin-top: 25px;
+    }
+
+    .reply {
+      background: #f1f3f7;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 12px;
+      position: relative;
+    }
+
+    .copy {
+      margin-top: 10px;
+      padding: 9px;
+      font-size: 14px;
+      background: #374151;
+    }
+
+    .note {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="logo">ReplyGen 🤖</div>
+
+    <div class="subtitle">
+      Generate the perfect reply in seconds.
+    </div>
+
+    <div class="card">
+
+      <label>Paste the message you received</label>
+
+      <textarea id="message" placeholder="Example: Hey, sorry I didn't reply earlier..."></textarea>
+
+      <label>Choose a tone</label>
+
+      <select id="tone">
+        <option>Friendly</option>
+        <option>Professional</option>
+        <option>Funny</option>
+        <option>Romantic</option>
+        <option>Casual</option>
+      </select>
+
+      <label>Reply length</label>
+
+      <select id="length">
+        <option>Short</option>
+        <option>Medium</option>
+        <option>Long</option>
+      </select>
+
+      <button onclick="generateReplies()">
+        ✨ Generate Replies
+      </button>
+
+      <div id="results"></div>
+
+    </div>
+
+    <div class="note">
+      ReplyGen — Your smart reply assistant
+    </div>
+
+  </div>
+
+  <script>
+
+    function generateReplies() {
+
+      const message = document.getElementById("message").value.trim();
+      const tone = document.getElementById("tone").value;
+      const length = document.getElementById("length").value;
+      const results = document.getElementById("results");
+
+      if (!message) {
+        alert("Please paste a message first.");
+        return;
+      }
+
+      let replies = [];
+
+      if (tone === "Friendly") {
+        replies = [
+          "No worries! Thanks for letting me know 😊",
+          "All good! I totally understand. Hope everything is going well!",
+          "No problem at all! It's great to hear from you 😊"
+        ];
+      }
+
+      else if (tone === "Professional") {
+        replies = [
+          "Thank you for your message. I completely understand.",
+          "No problem. I appreciate you getting back to me.",
+          "Thank you for letting me know. I look forward to hearing from you."
+        ];
+      }
+
+      else if (tone === "Funny") {
+        replies = [
+          "Haha, you're forgiven this time 😂",
+          "I was about to send a search party! 😂",
+          "No worries! I'll pretend I wasn't waiting forever 😄"
+        ];
+      }
+
+      else if (tone === "Romantic") {
+        replies = [
+          "It's okay ❤️ I'm just happy to hear from you.",
+          "No worries, hearing from you always makes me smile ❤️",
+          "Take your time. I'll always be happy to hear from you."
+        ];
+      }
+
+      else {
+        replies = [
+          "No worries!",
+          "It's all good, don't worry about it.",
+          "Yeah, no problem! 😊"
+        ];
+      }
+
+      if (length === "Short") {
+        replies = replies.map(r => r.split(".")[0] + ".");
+      }
+
+      results.innerHTML = "<h3>Suggested Replies</h3>";
+
+      replies.forEach((reply) => {
+
+        const div = document.createElement("div");
+        div.className = "reply";
+
+        div.innerHTML = `
+          <div>${reply}</div>
+          <button class="copy" onclick="copyReply(this)">
+            📋 Copy
+          </button>
+        `;
+
+        results.appendChild(div);
+      });
+    }
+
+    function copyReply(button) {
+
+      const text = button.parentElement.querySelector("div").innerText;
+
+      navigator.clipboard.writeText(text);
+
+      button.innerText = "✓ Copied!";
+      
+      setTimeout(() => {
+        button.innerText = "📋 Copy";
+      }, 1500);
+    }
+
+  </script>
+
+</body>
+    </html>
