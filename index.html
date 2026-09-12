@@ -163,7 +163,7 @@
 
   <script>
 
-    async function generateReplies() {
+    function generateReplies() async function generateReplies() {
   const message = document.getElementById("message").value.trim();
   const tone = document.getElementById("tone").value;
   const length = document.getElementById("length").value;
@@ -218,96 +218,4 @@
     `;
     console.error(error);
   }
-} {
-
-      const message = document.getElementById("message").value.trim();
-      const tone = document.getElementById("tone").value;
-      const length = document.getElementById("length").value;
-      const results = document.getElementById("results");
-
-      if (!message) {
-        alert("Please paste a message first.");
-        return;
-      }
-
-      let replies = [];
-
-      if (tone === "Friendly") {
-        replies = [
-          "No worries! Thanks for letting me know 😊",
-          "All good! I totally understand. Hope everything is going well!",
-          "No problem at all! It's great to hear from you 😊"
-        ];
-      }
-
-      else if (tone === "Professional") {
-        replies = [
-          "Thank you for your message. I completely understand.",
-          "No problem. I appreciate you getting back to me.",
-          "Thank you for letting me know. I look forward to hearing from you."
-        ];
-      }
-
-      else if (tone === "Funny") {
-        replies = [
-          "Haha, you're forgiven this time 😂",
-          "I was about to send a search party! 😂",
-          "No worries! I'll pretend I wasn't waiting forever 😄"
-        ];
-      }
-
-      else if (tone === "Romantic") {
-        replies = [
-          "It's okay ❤️ I'm just happy to hear from you.",
-          "No worries, hearing from you always makes me smile ❤️",
-          "Take your time. I'll always be happy to hear from you."
-        ];
-      }
-
-      else {
-        replies = [
-          "No worries!",
-          "It's all good, don't worry about it.",
-          "Yeah, no problem! 😊"
-        ];
-      }
-
-      if (length === "Short") {
-        replies = replies.map(r => r.split(".")[0] + ".");
-      }
-
-      results.innerHTML = "<h3>Suggested Replies</h3>";
-
-      replies.forEach((reply) => {
-
-        const div = document.createElement("div");
-        div.className = "reply";
-
-        div.innerHTML = `
-          <div>${reply}</div>
-          <button class="copy" onclick="copyReply(this)">
-            📋 Copy
-          </button>
-        `;
-
-        results.appendChild(div);
-      });
-    }
-
-    function copyReply(button) {
-
-      const text = button.parentElement.querySelector("div").innerText;
-
-      navigator.clipboard.writeText(text);
-
-      button.innerText = "✓ Copied!";
-      
-      setTimeout(() => {
-        button.innerText = "📋 Copy";
-      }, 1500);
-    }
-
-  </script>
-
-</body>
-    </html>
+}
